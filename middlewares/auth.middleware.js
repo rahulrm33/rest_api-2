@@ -4,7 +4,7 @@ const redis_client = require('../redis_connect');
 
 function verifyToken(req, res, next) {
     try {
-        // Bearer tokenstring
+
         const token = req.headers.authorization.split(' ')[1];
 
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
@@ -12,7 +12,7 @@ function verifyToken(req, res, next) {
         req.user_id=decoded.sub;
         req.token = token;
 
-        // varify blacklisted access token.
+        
         redis_client.get('BL_' + decoded.sub.toString(), (err, data) => {
             if(err) throw err;
 
@@ -32,7 +32,7 @@ function verifyRefreshToken(req, res, next) {
         const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
         req.userData = decoded;
 
-        // verify if token is in store or not
+        
         redis_client.get(decoded.sub.toString(), (err, data) => {
             if(err) throw err;
 
