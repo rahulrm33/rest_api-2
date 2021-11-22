@@ -4,13 +4,7 @@ const auth_middleware = require('../middlewares/auth.middleware');
 const User=require("../models/user.model");
 const mongoose = require('mongoose')
 
-// route.get('/dashboard', auth_middleware.verifyToken, async(req, res) => {
-//     const user = await User.find({ _id : req.user_id});
-//     console.log(user)
-//     res.send({
-//         "message":user.username
-//     })
-// });
+
 
 route.get('/dashboard', auth_middleware.verifyToken, async(req, res) => {
     try {
